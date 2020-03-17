@@ -1,0 +1,1 @@
+-- sql queries to create and configure the database

@@ -4,3 +4,10 @@
 
 # Class files
 *.class
+
+# Visual Paradigm backup files
+*.vpp.bak*
+*.vpp.vbak*
+
+# Dependencies
+*.jar

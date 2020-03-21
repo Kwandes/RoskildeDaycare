@@ -26,8 +26,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`child` (
   `special_request` TEXT NULL,
   `is_waiting` TINYINT(1) NOT NULL,
   `signup_date` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`child_id`),
-  UNIQUE INDEX `cpr_UNIQUE` (`cpr` ASC) VISIBLE)
+  PRIMARY KEY (`child_id`))
 ENGINE = InnoDB;
 
 
@@ -96,18 +95,18 @@ CREATE TABLE IF NOT EXISTS `mydb`.`phone` (
   `idphone` INT NOT NULL AUTO_INCREMENT,
   `phone_number` VARCHAR(30) NOT NULL,
   `phone_type` VARCHAR(20) NULL,
-  `parent_id` INT NOT NULL,
-  `employee_employee_id` INT NOT NULL,
+  `parent_id` INT NULL,
+  `employee_id` INT NULL,
   PRIMARY KEY (`idphone`),
   INDEX `fk_phone_parent1_idx` (`parent_id` ASC) VISIBLE,
-  INDEX `fk_phone_employee1_idx` (`employee_employee_id` ASC) VISIBLE,
+  INDEX `fk_phone_employee1_idx` (`employee_id` ASC) VISIBLE,
   CONSTRAINT `fk_phone_parent1`
     FOREIGN KEY (`parent_id`)
     REFERENCES `mydb`.`parent` (`parent_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_phone_employee1`
-    FOREIGN KEY (`employee_employee_id`)
+    FOREIGN KEY (`employee_id`)
     REFERENCES `mydb`.`employee` (`employee_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -137,18 +136,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`attendance?`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`attendance?` (
-  `attendance_id` INT NOT NULL,
-  `time_in` DATETIME NULL,
-  `time_out` DATETIME NULL,
-  `attendancecol` VARCHAR(45) NULL,
-  PRIMARY KEY (`attendance_id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `mydb`.`invoice`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`invoice` (
@@ -173,6 +160,67 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`waiting_list` (
 )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`group`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`group` (
+  `group_id` INT NOT NULL,
+  `child_id` INT NOT NULL,
+  `group_name` VARCHAR(15) NULL,
+  PRIMARY KEY (`group_id`, `child_id`),
+  INDEX `fk_group_child1_idx` (`child_id` ASC) VISIBLE,
+  CONSTRAINT `fk_group_child1`
+    FOREIGN KEY (`child_id`)
+    REFERENCES `mydb`.`child` (`child_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`schedule`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`schedule` (
+  `schedule_id` INT NOT NULL AUTO_INCREMENT,
+  `start_time` DATETIME NOT NULL,
+  `end_time` DATETIME NOT NULL,
+  `position` VARCHAR(20) NOT NULL,
+  `employee_id` INT NULL,
+  `group_id` INT NULL,
+  PRIMARY KEY (`schedule_id`),
+  INDEX `fk_schedule_employee1_idx` (`employee_id` ASC) VISIBLE,
+  INDEX `fk_schedule_group1_idx` (`group_id` ASC) VISIBLE,
+  CONSTRAINT `fk_schedule_employee1`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `mydb`.`employee` (`employee_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_schedule_group1`
+    FOREIGN KEY (`group_id`)
+    REFERENCES `mydb`.`group` (`group_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`user` (
+  `user_id` INT NOT NULL,
+  `user_name` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(64) NOT NULL,
+  `employee_id` INT NULL,
+  PRIMARY KEY (`user_id`),
+  INDEX `fk_user_employee1_idx` (`employee_id` ASC) VISIBLE,
+  CONSTRAINT `fk_user_employee1`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `mydb`.`employee` (`employee_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 

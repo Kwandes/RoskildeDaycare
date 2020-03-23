@@ -10,7 +10,7 @@ CREATE TRIGGER rd_child_insert
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'insert',
             NOW(),
             CONCAT(NEW.child_id, ' | ', NEW.first_name, ' ', NEW.last_name, ' | ', NEW.cpr));
@@ -22,7 +22,7 @@ CREATE TRIGGER rd_child_update
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'update',
             NOW(),
             CONCAT(NEW.child_id, ' | ', NEW.first_name, ' ', NEW.last_name, ' | ', NEW.cpr));
@@ -34,7 +34,7 @@ CREATE TRIGGER rd_child_delete
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'delete',
             NOW(),
             CONCAT(OLD.child_id, ' | ', OLD.first_name, ' ', OLD.last_name, ' | ', OLD.cpr));
@@ -49,7 +49,7 @@ CREATE TRIGGER rd_parent_insert
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'insert',
             NOW(),
             CONCAT(NEW.parent_id, ' | ', NEW.first_name, ' ', NEW.last_name, ' | ', NEW.cpr));
@@ -61,7 +61,7 @@ CREATE TRIGGER rd_parent_update
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'update',
             NOW(),
             CONCAT(NEW.parent_id, ' | ', NEW.first_name, ' ', NEW.last_name, ' | ', NEW.cpr));
@@ -73,7 +73,7 @@ CREATE TRIGGER rd_parent_delete
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'delete',
             NOW(),
             CONCAT(OLD.parent_id, ' | ', OLD.first_name, ' ', OLD.last_name, ' | ', OLD.cpr));
@@ -88,7 +88,7 @@ CREATE TRIGGER rd_employee_insert
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'insert',
             NOW(),
             CONCAT(NEW.employee_id, ' | ', NEW.first_name, ' ', NEW.last_name, ' | ', NEW.cpr));
@@ -100,7 +100,7 @@ CREATE TRIGGER rd_employee_update
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'update',
             NOW(),
             CONCAT(NEW.employee_id, ' | ', NEW.first_name, ' ', NEW.last_name, ' | ', NEW.cpr));
@@ -112,7 +112,7 @@ CREATE TRIGGER rd_employee_delete
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'delete',
             NOW(),
             CONCAT(OLD.employee_id, ' | ', OLD.first_name, ' ', OLD.last_name, ' | ', OLD.cpr));
@@ -127,7 +127,7 @@ CREATE TRIGGER rd_group_insert
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'insert',
             NOW(),
             CONCAT(NEW.group_id, ' | ', NEW.child_id, ' | ', NEW.group_name));
@@ -139,7 +139,7 @@ CREATE TRIGGER rd_group_update
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'update',
             NOW(),
             CONCAT(NEW.group_id, ' | ', NEW.child_id, ' | ', NEW.group_name));
@@ -151,7 +151,7 @@ CREATE TRIGGER rd_group_delete
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'delete',
             NOW(),
             CONCAT(OLD.group_id, ' | ', OLD.child_id, ' | ', OLD.group_name));
@@ -166,7 +166,7 @@ CREATE TRIGGER rd_schedule_insert
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'insert',
             NOW(),
             CONCAT(NEW.schedule_id, ' | ', NEW.group_id, ' | ', NEW.employee_id));
@@ -178,7 +178,7 @@ CREATE TRIGGER rd_schedule_update
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'update',
             NOW(),
             CONCAT(NEW.schedule_id, ' | ', NEW.group_id, ' | ', NEW.employee_id));
@@ -190,7 +190,7 @@ CREATE TRIGGER rd_schedule_delete
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'delete',
             NOW(),
             CONCAT(OLD.schedule_id, ' | ', OLD.group_id, ' | ', OLD.employee_id));
@@ -205,7 +205,7 @@ CREATE TRIGGER rd_address_insert
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'insert',
             NOW(),
             CONCAT(NEW.address_id, ' | ', NEW.city, ' | ', NEW.zip_code));
@@ -217,7 +217,7 @@ CREATE TRIGGER rd_address_update
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'update',
             NOW(),
             CONCAT(NEW.address_id, ' | ', NEW.city, ' | ', NEW.zip_code));
@@ -229,7 +229,7 @@ CREATE TRIGGER rd_address_delete
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'delete',
             NOW(),
             CONCAT(OLD.address_id, ' | ', OLD.city, ' | ', OLD.zip_code));
@@ -244,7 +244,7 @@ CREATE TRIGGER rd_phone_insert
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'insert',
             NOW(),
             CONCAT(NEW.idphone, ' | ', NEW.phone_number));
@@ -256,7 +256,7 @@ CREATE TRIGGER rd_phone_update
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'update',
             NOW(),
             CONCAT(NEW.idphone, ' | ', NEW.phone_number));
@@ -268,7 +268,7 @@ CREATE TRIGGER rd_phone_delete
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'delete',
             NOW(),
             CONCAT(OLD.idphone, ' | ', OLD.phone_number));
@@ -283,7 +283,7 @@ CREATE TRIGGER rd_user_insert
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'insert',
             NOW(),
             CONCAT(NEW.user_id, ' | ', NEW.user_name, ' | ', NEW.password));
@@ -295,7 +295,7 @@ CREATE TRIGGER rd_user_update
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'update',
             NOW(),
             CONCAT(NEW.user_id, ' | ', NEW.user_name, ' | ', NEW.password));
@@ -307,7 +307,7 @@ CREATE TRIGGER rd_user_delete
     FOR EACH ROW
 BEGIN
     INSERT INTO roskilde_daycare.log(user_id, action, log_time, data)
-    VALUES (CURRENT_USER,
+    VALUES (USER(),
             'delete',
             NOW(),
             CONCAT(OLD.user_id, ' | ', OLD.user_name, ' | ', OLD.password));

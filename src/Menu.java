@@ -10,8 +10,14 @@ public class Menu
 {
     public static void display()
     {
-        // call the DB and get results
-        ResultSet rs = DBInteraction.sendQuery("SELECT * FROM roskilde_daycare.child");
+        // Example Insert using the update(query) method
+        System.out.println(DBInteraction.updateDB(
+                "INSERT INTO roskilde_daycare.child(first_name, last_name, birth_date, cpr, special_request, is_waiting, signup_date)\n" +
+                        "VALUES ('Barbara', 'Spencer', '1420-06-09', 'wesrdtcfyuvgibuhniojmolkæ4', 'Corona', FALSE,\n" +
+                        "        '2020-01-01 11:11:11');"));
+
+        // Example select using the getData(query) method
+        ResultSet rs = DBInteraction.getData("SELECT * FROM roskilde_daycare.child");
 
         try
         {

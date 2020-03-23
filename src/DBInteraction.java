@@ -14,8 +14,9 @@ public class DBInteraction
     private static String passwd = "password";
     //endregion
 
-    // simple method that takes a query and returns a ResultSet (RowSet interface)
-    public static ResultSet sendQuery(String query)
+    // takes a Select query and returns a ResultSet (RowSet interface)
+    // Doesn't work with Insert, Update and Delete statements, only things that return actual data
+    public static ResultSet getData(String query)
     {
         try
         {
@@ -23,7 +24,7 @@ public class DBInteraction
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(url, user, passwd);
             Statement st = con.createStatement();
-            // Query execution and result return
+            // execute query and get the data back as a ResultSet
             ResultSet rs = st.executeQuery(query);
             return rs;
 
@@ -34,6 +35,30 @@ public class DBInteraction
         }
         // if there was an exception the ResultSet will be empty
         return null;
+    }
+
+    // takes any non-Select query
+    // returns the amount of rows affected (as an int)
+    // 0 indicates that there was no data returned
+    public static int updateDB(String query)
+    {
+        try
+        {
+            // connection setup
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, user, passwd);
+            Statement st = con.createStatement();
+            // execute query and get number of rows affected as an int
+            int result = st.executeUpdate(query);
+
+            return result;
+
+        } catch (SQLException | ClassNotFoundException e)
+        {
+            // temporary printout, ideally DBInteraction doesn't have any console printouts
+            System.out.println(e);
+        }
+        return 0;
     }
 
     //region getters and setters

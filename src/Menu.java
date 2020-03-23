@@ -8,30 +8,65 @@ import java.sql.SQLException;
 
 public class Menu
 {
+    //region class variables
+    private static int screenNumber = 1;
+    private static String title = "Roskilde Daycare Project";
+    //endregion
+
     public static void display()
     {
-        // Example Insert using the update(query) method
-        System.out.println(DBInteraction.updateDB(
-                "INSERT INTO roskilde_daycare.child(first_name, last_name, birth_date, cpr, special_request, is_waiting, signup_date)\n" +
-                        "VALUES ('Barbara', 'Spencer', '1420-06-09', 'wesrdtcfyuvgibuhniojmolkæ4', 'Corona', FALSE,\n" +
-                        "        '2020-01-01 11:11:11');"));
-
-        // Example select using the getData(query) method
-        ResultSet rs = DBInteraction.getData("SELECT * FROM roskilde_daycare.child");
-
-        try
+        while (true)
         {
-            // iterate over the results and display the contents
-            while (rs.next())
+            switch (screenNumber)
             {
-                // resultSet consists of rows, with specific columns accessible with both a number and the column name
-                System.out.println("ID: " + rs.getString("child_id") + " | " +
-                        "Name: " + rs.getString("first_name") + " " +
-                        rs.getString("last_name"));
+                case 1:
+                    starterScreen();
+                    break;
+                case 99:
+                    return;
+                default:
+                    return;
             }
-        } catch (SQLException e)
+        }
+    }
+
+    // starter screen for the user
+    // screenNumber = 1
+    private static void starterScreen()
+    {
+        System.out.println("Hey I am main menu");
+        int input = 2;
+        switch (input)
         {
-            e.printStackTrace();
+            case 2:
+                System.out.println("You chose to see Beings");
+                screenNumber = 2;
+                break;
+            default:
+                System.out.println("Exiting out, bye");
+                screenNumber = 99;
+                break;
+        }
+    }
+
+    // see being description
+    // screenNumber = 2
+    private static void seeBeing()
+    {
+        System.out.println("I want your phone");
+        ManageBeing.createQueryForAddBeing();
+
+        int input = 1;
+        switch (input)
+        {
+            case 1:
+                System.out.println("k going back to main menu");
+                screenNumber = 1;
+                break;
+            default:
+                System.out.println("Exiting out, bye");
+                screenNumber = 99;
+                break;
         }
     }
 }

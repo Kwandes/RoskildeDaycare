@@ -4,6 +4,10 @@ this code created by itai gramse
 import java.util.*;
 
 public class ScannerReader {
+    public static String scannerAll(){
+        Scanner console = new Scanner(System.in);
+        return console.next();
+    }
     public static String scannerIntAsString()
     {
         Scanner console = new Scanner(System.in);

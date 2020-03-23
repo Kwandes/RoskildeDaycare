@@ -181,7 +181,7 @@ public class ManageBeing
         }
         return -1;
     }
-    
+
     // allow you to search for specific being in one of the being table and it will return the id of the being
     public static void searchInBeingTable(){
         String tableName = chooseTable();
@@ -190,6 +190,4 @@ public class ManageBeing
         int idForUpdate = chooseBeingFromSearchResult(query,tableName);
         System.out.println("id is" + idForUpdate);
     }
-
-
 }

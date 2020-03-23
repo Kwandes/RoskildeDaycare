@@ -24,6 +24,9 @@ public class Menu {
                 case 1:
                     starterScreen();
                     break;
+                case 2:
+                    seeBeing();
+                    break;
                 case 99:
                     return;
                 default:
@@ -41,7 +44,7 @@ public class Menu {
         switch (input)
         {
             case 2:
-                System.out.println("You chose to see Beings");
+                System.out.println("You chose to create Beings");
                 screenNumber = 2;
                 break;
             default:

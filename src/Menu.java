@@ -6,9 +6,11 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Menu
-{
+public class Menu {
     //region class variables
+    private static final String decorationLines = "_________________________________________________________________";
+    private static final String decorationSymbol = " ";
+
     private static int screenNumber = 1;
     private static String title = "Roskilde Daycare Project";
     //endregion
@@ -34,7 +36,7 @@ public class Menu
     // screenNumber = 1
     private static void starterScreen()
     {
-        System.out.println("Hey I am main menu");
+        decorationHeader("Main Menu");
         int input = 2;
         switch (input)
         {
@@ -69,4 +71,34 @@ public class Menu
                 break;
         }
     }
+
+    //region artsy
+
+    // this adds a title separated by two lines, as declared by the final variable
+    // its modifiable by the decoration* variables at declaration.
+    public static void decorationHeader(String title)
+    {
+        System.out.println(decorationLines);
+        int decorationLength = decorationLines.length()/2;
+        int titleLength = title.length()/2;
+        int spacerLength = decorationLength-titleLength;
+
+        for(int i =0; i < spacerLength; i++)
+        {
+            System.out.print(decorationSymbol);
+        }
+        System.out.print(title);
+
+        for(int i =0; i < spacerLength; i++)
+        {
+            System.out.print(decorationSymbol);
+        }
+        System.out.println();
+        System.out.println(decorationLines);
+    }
+
+
+
+
+
 }

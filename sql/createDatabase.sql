@@ -215,9 +215,10 @@ CREATE TABLE IF NOT EXISTS `roskilde_daycare`.`user` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS roskilde_daycare.log (
     log_id   INT PRIMARY KEY AUTO_INCREMENT,
-    user_id  VARCHAR(20),
+    user_id  TEXT,
     action   VARCHAR(10),
-    log_time TIMESTAMP,
+    table_name VARCHAR(15),
+    log_time DATETIME(6),
     data     TEXT
 );
 

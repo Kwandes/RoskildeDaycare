@@ -165,7 +165,9 @@ public class ManageBeing
         int i = 1;
         try {
             while (rs.next()) {
-                System.out.println("[" + i + "]" + rs.getString(tableName + "_id"));
+                System.out.printf("%-7s%-20s%-20s%1s\n","["+i+"]",(rs.getString(tableName+"_id")),
+                        (rs.getString("first_name") + " " +
+                                rs.getString("last_name")),rs.getString("cpr"));
                 i++;
             }
             System.out.println("[0] for cancel ");

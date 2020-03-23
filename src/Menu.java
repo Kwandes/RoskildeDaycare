@@ -5,6 +5,7 @@
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Menu {
     //region class variables
@@ -37,13 +38,30 @@ public class Menu {
     private static void starterScreen()
     {
         decorationHeader("Main Menu");
-        int input = 2;
+        int input = 3;
         switch (input)
         {
             case 2:
-                System.out.println("You chose to see Beings");
+                decorationHeader("See list of all people");
                 screenNumber = 2;
                 break;
+            case 3: //create a user
+                decorationHeader("Create a new user");
+                String query = ManageBeing.createQueryForAddBeing();
+                DBInteraction.updateDB(query);
+                System.out.println("what would you like to do next?");
+                printFormat(1, "Return to main menu");
+                printFormat(1, "Quit the program");
+                int choice = ScannerReader.scannerInt(1,2);
+                switch (choice)
+                {
+                    case 1:
+                        screenNumber = 1;
+                        break;
+                    case 2:
+                        screenNumber = 99;
+                        break;
+                }
             default:
                 System.out.println("Exiting out, bye");
                 screenNumber = 99;
@@ -97,8 +115,10 @@ public class Menu {
         System.out.println(decorationLines);
     }
 
-
-
+    public static void printFormat(int num, String text)
+    {
+        System.out.println("["+ num +"] " + text);
+    }
 
 
 }

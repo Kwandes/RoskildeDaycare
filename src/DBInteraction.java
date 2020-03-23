@@ -6,8 +6,7 @@
 
 import java.sql.*;
 
-public class DBInteraction
-{
+public class DBInteraction {
     //region Class variables for DB connection
     private static String url = "jdbc:mysql://*/";
     private static String user = "user";
@@ -18,8 +17,7 @@ public class DBInteraction
     // Doesn't work with Insert, Update and Delete statements, only things that return actual data
     public static ResultSet getData(String query)
     {
-        try
-        {
+        try {
             // connection setup
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(url, user, passwd);
@@ -28,8 +26,7 @@ public class DBInteraction
             ResultSet rs = st.executeQuery(query);
             return rs;
 
-        } catch (SQLException | ClassNotFoundException e)
-        {
+        } catch (SQLException | ClassNotFoundException e) {
             // temporary printout, ideally DBInteraction doesn't have any console printouts
             System.out.println(e);
         }
@@ -42,8 +39,7 @@ public class DBInteraction
     // 0 indicates that there was no data returned
     public static int updateDB(String query)
     {
-        try
-        {
+        try {
             // connection setup
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(url, user, passwd);
@@ -53,12 +49,40 @@ public class DBInteraction
 
             return result;
 
-        } catch (SQLException | ClassNotFoundException e)
-        {
+        } catch (SQLException | ClassNotFoundException e) {
             // temporary printout, ideally DBInteraction doesn't have any console printouts
             System.out.println(e);
         }
         return 0;
+    }
+
+    public static String login()
+    {
+        try {
+            // connection setup
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, user, passwd);
+            Statement st = con.createStatement();
+            // execute query and get number of rows affected as an int
+            ResultSet rs = st.executeQuery("SELECT account_type FROM roskilde_daycare.user WHERE user_name = '" + user + "';");
+
+            // get account type from the result
+            String account_name;
+            if (rs.next()) {
+                account_name = rs.getString("account_type");
+            }
+            else {
+                return null;
+            }
+            
+            return account_name;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            // temporary printout, ideally DBInteraction doesn't have any console printouts
+            System.out.println(e);
+        }
+        return null;
+
     }
 
     //region getters and setters

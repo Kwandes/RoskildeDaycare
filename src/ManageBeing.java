@@ -162,7 +162,8 @@ public class ManageBeing
     }
 
 
-    public static int chooseBeingFromSearchResult(String query, String tableName)  {
+    public static int chooseBeingFromSearchResult(String query, String tableName)
+    {
         System.out.println("which one would you like to change? ");
         ResultSet rs = getQueryResultSet(query);
         int i = 1;
@@ -186,7 +187,8 @@ public class ManageBeing
     }
 
     // allow you to search for specific being in one of the being table and it will return the id of the being
-    public static String searchInBeingTable(){
+    public static String searchInBeingTable()
+    {
         String tableName = chooseTable();
         String field = searchField();
         String query = createSearchQuery(tableName,field);
@@ -197,34 +199,35 @@ public class ManageBeing
 
     // a method to delete a being form one of the table, the string that you pass in should contain two words. first id that you would like to delete and second the table name.
     //it is made like this for continue method to searchInBeingTable
-    public static String deleteBeing(String toDelete){
+    public static String deleteBeing(String toDelete)
+    {
             Scanner scanner = new Scanner(toDelete);
             int id = Integer.parseInt(scanner.next());
             String tableName = scanner.next();
-            String query = "DELETE FROM roskilde_daycare."+tableName+" WHERE "+tableName+"_id = "+id;
-            return query;
+            return "DELETE FROM roskilde_daycare."+tableName+" WHERE "+tableName+"_id = "+id;
     }
 
     //allow the user to update information about a being need to get call with a string (idNumeber + tableName)same as delete method.
-    public static void updateBeing (String toUpdate){
+    public static String updateBeing (String toUpdate)
+    {
         Scanner scanner = new Scanner(toUpdate);
         int id = Integer.parseInt(scanner.next());
         String tableName = scanner.next();
-        String query;
         switch (tableName){
             case "employee":
-                query = updateEmployee(id);
-                break;
+                return updateEmployee(id);
             case "parent":
-                query = updateParent(id);
-                break;
+                return updateParent(id);
             case "child":
-
+                return updateChild(id);
+            default:
+                System.out.println("something went wrong");
+                return null;
         }
 
-
     }
-    public static String updateEmployee(int id){
+    public static String updateEmployee(int id)
+    {
         System.out.println("what would you like to change:\n" +
                 "[1] First name\n" +
                 "[2] Last name\n");
@@ -234,18 +237,19 @@ public class ManageBeing
             case 1:
                 System.out.println("which first name would you like to change to?");
                 userChange = ScannerReader.scannerWords();
-                return "UPDATE  roskilde_daycare.employee SET first_name = "+ userChange +"WHERE employee_id = "+id;
+                return "UPDATE  roskilde_daycare.employee SET first_name = '"+ userChange +"' WHERE employee_id = "+id;
             case 2 :
                 System.out.println("which last name would you like to change to?");
                 userChange = ScannerReader.scannerWords();
-                return "UPDATE  roskilde_daycare.employee SET last_name = "+ userChange +"WHERE employee_id = "+id;
+                return "UPDATE  roskilde_daycare.employee SET last_name = '"+ userChange +"' WHERE employee_id = "+id;
             default:
                 return null;
         }
 
     }
 
-    public static String updateParent(int id){
+    public static String updateParent(int id)
+    {
         System.out.println("what would you like to change:\n" +
                 "[1] First name\n" +
                 "[2] Last name\n" +
@@ -256,34 +260,38 @@ public class ManageBeing
             case 1:
                 System.out.println("which first name would you like to change to?");
                 userChange = ScannerReader.scannerWords();
-                return "UPDATE  roskilde_daycare.parent SET first_name = "+ userChange +"WHERE parent_id = "+id;
+                return "UPDATE  roskilde_daycare.parent SET first_name = '"+ userChange +"' WHERE parent_id = "+id;
             case 2 :
                 System.out.println("which last name would you like to change to?");
                 userChange = ScannerReader.scannerWords();
-                return "UPDATE  roskilde_daycare.parent SET last_name = "+ userChange +"WHERE parent_id = "+id;
+                return "UPDATE  roskilde_daycare.parent SET last_name = '"+ userChange +"' WHERE parent_id = "+id;
             case 3:
                 System.out.println("type the new E-mail address?");
                 userChange = ScannerReader.scannerEMail();
-                return "UPDATE  roskilde_daycare.parent SET last_name = "+ userChange +"WHERE parent_id = "+id;
+                return "UPDATE  roskilde_daycare.parent SET last_name = '"+ userChange +"' WHERE parent_id = "+id;
             default:
                 return null;
         }
     }
-    public static String updateChild(int id){
+    public static String updateChild(int id)
+    {
         System.out.println("what would you like to change:\n" +
                 "[1] First name\n" +
-                "[2] Last name\n" )
-        int userInput = ScannerReader.scannerInt(1,2);
+                "[2] Last name\n");
+        int userInput = ScannerReader.scannerInt(1, 2);
         String userChange;
-        switch (userInput){
+        switch (userInput) {
             case 1:
                 System.out.println("which first name would you like to change to?");
                 userChange = ScannerReader.scannerWords();
-                return "UPDATE  roskilde_daycare.child SET first_name = "+ userChange +"WHERE child_id = "+id;
-            case 2 :
+                return "UPDATE  roskilde_daycare.child SET first_name = '" + userChange + "' WHERE child_id = " + id;
+            case 2:
                 System.out.println("which last name would you like to change to?");
                 userChange = ScannerReader.scannerWords();
-                return "UPDATE  roskilde_daycare.child SET last_name = "+ userChange +"WHERE child_id = "+id;
+                return "UPDATE  roskilde_daycare.child SET last_name = '" + userChange + "' WHERE child_id = " + id;
+            default:
+                return null;
         }
+    }
 
 }

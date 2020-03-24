@@ -1,4 +1,6 @@
-
+/*Class that responsible to manage DB that contain info for a daycare.
+created by Itai Gramse. A part of a project for KEA university.
+ */
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -28,6 +30,7 @@ public class ManageBeing
         }
     }
 
+    //show all the being from a chosen table
     public static void seeBeing(String tableName)
     {
         String query = "SELECT "+ tableName+"_id, first_name, last_name, birth_date, cpr FROM roskilde_daycare."+tableName; //create a query to the DB
@@ -107,7 +110,7 @@ public class ManageBeing
     public static String chooseTable()
     {
         //user choose the table to operate on
-        System.out.println("which being would you like to add:\n[1] Employee\n[2] Parent \n[3] Child");
+        System.out.println("which group of being would you like to operate on:\n[1] Employee\n[2] Parent \n[3] Child");
         int userChoice = ScannerReader.scannerInt(1,3);
         switch (userChoice) {
             case 1:
@@ -183,11 +186,22 @@ public class ManageBeing
     }
 
     // allow you to search for specific being in one of the being table and it will return the id of the being
-    public static void searchInBeingTable(){
+    public static String searchInBeingTable(){
         String tableName = chooseTable();
         String field = searchField();
         String query = createSearchQuery(tableName,field);
         int idForUpdate = chooseBeingFromSearchResult(query,tableName);
         System.out.println("id is" + idForUpdate);
+        return idForUpdate +" "+ tableName;
+    }
+
+    // a method to delete a being form one of the table, the string that you pass in should contain two words. first id that you would like to delete and second the table name.
+    //it is made like this for continue method to searchInBeingTable
+    public static String deleteBeing(String toDelete){
+            Scanner scanner = new Scanner(toDelete);
+            int id = Integer.parseInt(scanner.next());
+            String tableName = scanner.next();
+            String query = "DELETE FROM roskilde_daycare."+tableName+" WHERE "+tableName+"_id = "+id;
+            return query;
     }
 }

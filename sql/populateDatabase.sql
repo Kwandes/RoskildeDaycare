@@ -10,23 +10,22 @@ USE roskilde_daycare;
 -- Table `roskilde_daycare`.`child`
 -- A list of children in the system, both ones already accepted and ones waiting
 -- -----------------------------------------------------
-INSERT INTO child(first_name, last_name, birth_date, cpr, special_request, is_waiting, signup_date)
+INSERT INTO child(first_name, last_name, birth_date, cpr, special_request, is_waiting)
 VALUES ('Jan', 'John', '1420-06-09', 'Uc8KsWNQfRpjksSIRDUj2cKhwLPGFSJc1DiBY3jksz71RzzkLVuw3ol7YCEf6Lq7', 'Nuts allergy',
-        FALSE, '2020-01-01 11:11:11'),
-       ('Gypsi', 'Cris', '1420-06-09', 'kedR9vqBwNW0PX2kT1USIXkwPGPogdBt8RVm2bH420ztpabEYC3U8cqTNCBDqaov', '', FALSE,
-        '2020-01-01 11:11:11'),
+        FALSE),
+       ('Gypsi', 'Cris', '1420-06-09', 'kedR9vqBwNW0PX2kT1USIXkwPGPogdBt8RVm2bH420ztpabEYC3U8cqTNCBDqaov', '', FALSE),
        ('Alexo', 'Macgangam', '1420-06-09', 'dWAWLHEtFx1RSL889xSvhvDOJjyw1rCQEiz3jln0V7OwFAEL5p0uDkgeERIKuqEn', '',
-        TRUE, '2020-01-01 11:11:11'),
+        TRUE),
        ('TEODEO', 'OREO', '1420-06-09', 'YCtm1o5V5X5QVuHEZVjulbbt8hhm87C3xMdBANZiCtSlMbDCOrdMLugLNf385HmC', 'Corona',
-        TRUE, '2020-01-01 11:11:11'),
-       ('Violet', 'Mercado', '1420-06-09', '814ZT8LXe0GnNGAWI3w6dAGseSUDTKpDiAtfeiY5OzdlQZ4WwMZgHHu2xcpcWT2u', '', TRUE,
-        '2020-01-01 11:11:11'),
-       ('Chloe', 'Baldwin', '1420-06-09', 'E6vNWbzWRJgSba9SQ3VVS0mfzu7n1TLDf9FSlRXwHAOktMrrl4JEaGATCbJJA94s', '', FALSE,
-        '2020-01-01 11:11:11'),
+        TRUE),
+       ('Violet', 'Mercado', '1420-06-09', '814ZT8LXe0GnNGAWI3w6dAGseSUDTKpDiAtfeiY5OzdlQZ4WwMZgHHu2xcpcWT2u', '',
+        TRUE),
+       ('Chloe', 'Baldwin', '1420-06-09', 'E6vNWbzWRJgSba9SQ3VVS0mfzu7n1TLDf9FSlRXwHAOktMrrl4JEaGATCbJJA94s', '',
+        FALSE),
        ('Constance', 'Skimmer', '1420-06-09', '7Tbgw8ohw3ryRuEv5Mnf3zHzYM77KEkHBBiaNyaiXpDAoGf5q3qNNxE2BeJUrujy', '',
-        TRUE, '2020-01-01 11:11:11'),
+        TRUE),
        ('Eden', 'Gill', '1420-06-09', 'lmikzyVBwTHcLjKqzpvU0GP9caBINqULe4xv61bKq3yaqXYU7j4idiRSk4mUi4Jx', 'Corona',
-        TRUE, '2020-01-01 11:11:11');
+        TRUE);
 
 
 -- -----------------------------------------------------

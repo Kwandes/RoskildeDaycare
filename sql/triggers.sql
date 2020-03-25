@@ -308,7 +308,7 @@ BEGIN
             'insert',
             'user',
             CURRENT_TIME(6),
-            CONCAT(NEW.user_id, ' | ', NEW.user_name, ' | ', NEW.password));
+            CONCAT(NEW.user_id, ' | ', NEW.user_name));
 END;
 
 CREATE TRIGGER rd_user_update
@@ -321,7 +321,7 @@ BEGIN
             'update',
             'user',
             CURRENT_TIME(6),
-            CONCAT(NEW.user_id, ' | ', NEW.user_name, ' | ', NEW.password));
+            CONCAT(NEW.user_id, ' | ', NEW.user_name));
 END;
 
 CREATE TRIGGER rd_user_delete
@@ -334,5 +334,5 @@ BEGIN
             'delete',
             'user',
             CURRENT_TIME(6),
-            CONCAT(OLD.user_id, ' | ', OLD.user_name, ' | ', OLD.password));
+            CONCAT(OLD.user_id, ' | ', OLD.user_name));
 END;

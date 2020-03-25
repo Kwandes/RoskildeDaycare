@@ -24,11 +24,10 @@ CREATE TABLE IF NOT EXISTS `roskilde_daycare`.`child` (
     `cpr`             VARCHAR(64) NOT NULL,
     `special_request` TEXT,
     `is_waiting`      TINYINT(1)  NOT NULL,
-    `signup_date`     TIMESTAMP   NOT NULL,
+    `signup_date`     DATETIME DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (`child_id`)
 )
     ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `roskilde_daycare`.`address`
@@ -196,10 +195,10 @@ CREATE TABLE IF NOT EXISTS `roskilde_daycare`.`invoice` (
 -- Table `roskilde_daycare`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `roskilde_daycare`.`user` (
-    `user_id`     INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `user_name`   VARCHAR(20) NOT NULL,
+    `user_id`      INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `user_name`    VARCHAR(20) NOT NULL,
     `account_type` VARCHAR(20),
-    `employee_id` INT,
+    `employee_id`  INT DEFAULT NULL,
     CONSTRAINT `fk_user_employee1`
         FOREIGN KEY (`employee_id`)
             REFERENCES `roskilde_daycare`.`employee` (`employee_id`)
@@ -214,12 +213,12 @@ CREATE TABLE IF NOT EXISTS `roskilde_daycare`.`user` (
 -- Filled by triggers
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS roskilde_daycare.log (
-    log_id   INT PRIMARY KEY AUTO_INCREMENT,
-    user_id  TEXT,
-    action   VARCHAR(10),
+    log_id     INT PRIMARY KEY AUTO_INCREMENT,
+    user_id    TEXT,
+    action     VARCHAR(10),
     table_name VARCHAR(15),
-    log_time DATETIME(6),
-    data     TEXT
+    log_time   DATETIME(6),
+    data       TEXT
 );
 
 SET SQL_MODE = @OLD_SQL_MODE;

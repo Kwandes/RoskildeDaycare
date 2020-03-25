@@ -82,28 +82,24 @@ public class ManageBeing {
                 System.out.println("Please type the bank account number");
                 String bankAccount = ScannerReader.scannerIntAsString();
                 //complete the query for employee
-                query = "INSERT INTO  roskilde_daycare." + tableName + " (first_name, last_name, cpr, birth_date, work_hours, salary_per_hour, bank_account)" +
-                        query + hoursOfWork + "', '" + salaryPerHour + "', '" + bankAccount + "');"; //complete the query for employee
-                break;
+                return "INSERT INTO  roskilde_daycare." + tableName + " (first_name, last_name, cpr, birth_date, work_hours, salary_per_hour, bank_account)" +
+                                query + hoursOfWork + "', '" + salaryPerHour + "', '" + bankAccount + "');"; //complete the query for employee
             case "parent":
                 System.out.println("Please type e-mail address");
                 String email = ScannerReader.scannerEMail();
                 //complete the query for parent
-                query = "INSERT INTO roskilde_daycare." + tableName + " (first_name, last_name, cpr, birth_date, email)" +
-                        query + email + "');";
-                break;
+                return "INSERT INTO roskilde_daycare." + tableName + " (first_name, last_name, cpr, birth_date, email)" +
+                                query + email + "');"; //complete query for parent
             case "child":
                 System.out.println("is the child on the waiting list? \n[0] for not \n[1] for yes)");
-                int isWaiting = ScannerReader.scannerInt(0, 1);
+                int isWaiting = ScannerReader.scannerInt(0,1);
                 //complete the query for child
-                query = "INSERT INTO  roskilde_daycare." + tableName + " (first_name, last_name, cpr, birth_date, is_waiting)"
-                        + query + isWaiting + "')";
-                break;
+                return "INSERT INTO  roskilde_daycare." + tableName + " (first_name, last_name, cpr, birth_date, is_waiting)"
+                                + query + isWaiting + "')";//complete query for child
             default:
                 System.out.println("something went wrong...");
-                break;
+                return null;
         }
-        return query;
     }
 
     //method that the user can choose which table to operates on.
@@ -194,7 +190,6 @@ public class ManageBeing {
         String field = searchField();
         String query = createSearchQuery(tableName, field);
         int idForUpdate = chooseBeingFromSearchResult(query, tableName);
-        System.out.println("id is" + idForUpdate);
         return idForUpdate + " " + tableName;
     }
 
@@ -320,6 +315,21 @@ public class ManageBeing {
         }
 
 
+    }
+    //creating relation between exist parent to exist child
+    public static String createChildHasParentRelationQuery(){
+        //find child
+        String childQuery = createSearchQuery("child", searchField());
+        System.out.print("(child)");
+        int childID = chooseBeingFromSearchResult(childQuery, "child");
+
+        //find parent
+        String parentQuery = createSearchQuery("parent", searchField());
+        System.out.println("parent");
+        int parentID = chooseBeingFromSearchResult(parentQuery, "parent");
+        //create query
+        return "INSERT INTO  roskilde_daycare.child_has_parent (child_id, parent_id) VALUES ('" + childID + "', '" + parentID + "');";
+        //send to database
     }
 
 }

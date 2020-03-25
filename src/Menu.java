@@ -25,6 +25,9 @@ public class Menu {
                 case 1:
                     starterScreen();
                     break;
+                case 2:
+                    seeBeing();
+                    break;
                 case 99:
                     return;
                 default:

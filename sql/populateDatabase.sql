@@ -111,4 +111,8 @@ VALUES ('4512345678', 'mobile', 1, NULL),
        ('48123456789', 'mobile', 1, 1),
        ('48123431212', 'mobile', 3, 1),
        ('4512315853', 'mobile', 4, 1),
-       ('4588263671', 'mobile', null, 2);
+       ('4588263671', 'mobile', NULL, 2);
+
+INSERT INTO user (user_name, account_type, employee_id)
+VALUES ('admin', 'admin', 2),
+       ('nerd', 'idiot', NULL);

@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `roskilde_daycare`.`invoice` (
 CREATE TABLE IF NOT EXISTS `roskilde_daycare`.`user` (
     `user_id`     INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `user_name`   VARCHAR(20) NOT NULL,
-    `password`    VARCHAR(64) NOT NULL,
+    `account_type` VARCHAR(20),
     `employee_id` INT,
     CONSTRAINT `fk_user_employee1`
         FOREIGN KEY (`employee_id`)

@@ -41,32 +41,54 @@ public class Menu {
     private static void starterScreen()
     {
         decorationHeader("Main Menu");
-        int input = 3;
+        printFormat(1, "Show a list of people");
+        printFormat(2, "Create a new user");
+        printFormat(3, "Update user information");
+
+        int input = ScannerReader.scannerInt(1,6);
+
+        int choice = -1;
         switch (input)
         {
-            case 2:
-                decorationHeader("See list of all people");
-                screenNumber = 2;
+            case 1:
+                printFormat(1, "See a list of all people by type");
+                printFormat(2, "Search for a specific person");
+                input = ScannerReader.scannerInt(1,6);
+                switch (input)
+                {
+                    case 1:
+                        decorationHeader("See a list of all people by type");
+                        String tableName = ManageBeing.chooseTable();
+                        ManageBeing.seeBeing(tableName);
+                        returnToMainMenuOrQuit();
+                        break;
+                    case 2:
+                        String person = ManageBeing.searchInBeingTable();
+                        //questionable return
+                        returnToMainMenuOrQuit();
+                        break;
+                }
+
+                //screenNumber = 2;
                 break;
-            case 3: //create a user
+            case 2: //create a user
                 decorationHeader("Create a new user");
                 String query = ManageBeing.createQueryForAddBeing();
                 DBInteraction.updateDB(query);
-                System.out.println("what would you like to do next?");
-                printFormat(1, "Return to main menu");
-                printFormat(1, "Quit the program");
-                int choice = ScannerReader.scannerInt(1,2);
-                switch (choice)
-                {
-                    case 1:
-                        screenNumber = 1;
-                        break;
-                    case 2:
-                        screenNumber = 99;
-                        break;
-                }
-            default:
-                System.out.println("Exiting out, bye");
+                returnToMainMenuOrQuit();
+                break;
+            case 3:
+                decorationHeader("Update user information");
+                //update user information
+                returnToMainMenuOrQuit();
+                break;
+            case 4:
+                decorationHeader("Delete a user");
+                //delete a user method
+                returnToMainMenuOrQuit();
+                break;
+            case 6:
+                System.out.println("Good bye");
                 screenNumber = 99;
                 break;
         }
@@ -123,5 +145,21 @@ public class Menu {
         System.out.println("["+ num +"] " + text);
     }
 
-
+    public static void returnToMainMenuOrQuit()
+    {
+        System.out.println("");
+        System.out.println("what would you like to do next?");
+        System.out.println("[1] Return to main menu");
+        System.out.println("[2] Quit the program");
+        int choice = ScannerReader.scannerInt(1, 2);
+        switch (choice)
+        {
+            case 1:
+                screenNumber = 1;
+                break;
+            case 2:
+                screenNumber = 99;
+                break;
+        }
+    }
 }

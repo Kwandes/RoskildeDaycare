@@ -193,6 +193,31 @@ public class ManageBeing {
         return idForUpdate + " " + tableName;
     }
 
+    public static void fullSearchBeing(){
+        String result = searchInBeingTable();
+        if (result.length()<1){
+            return;
+        }
+        System.out.println("What would you like to do \n" +
+                "[1] Update \n" +
+                "[2] delete \n" +
+                "[0] return to the menu");
+        int userInput = ScannerReader.scannerInt(0,2);
+        switch (userInput){
+            case 1:
+                updateBeing(result);
+                break;
+            case 2:
+                deleteBeing(result);
+                break;
+            case 0:
+                System.out.println("return to the menu");
+                break;
+            default:
+                System.out.println("something went wrong");
+        }
+
+    }
     // a method to delete a being form one of the table, the string that you pass in should contain two words. first id that you would like to delete and second the table name.
     //it is made like this for continue method to searchInBeingTable
     public static String deleteBeing (String toDelete)
@@ -331,5 +356,17 @@ public class ManageBeing {
         return "INSERT INTO  roskilde_daycare.child_has_parent (child_id, parent_id) VALUES ('" + childID + "', '" + parentID + "');";
         //send to database
     }
-
+    public static void showGroups(){
+        ResultSet rs = DBInteraction.getData( "SELECT roskilde_daycare.group.group_name, roskilde_daycare.child.first_name, roskilde_daycare.child.last_name" +
+                " FROM roskilde_daycare.group JOIN roskilde_daycare.child ON roskilde_daycare.group.child_id =roskilde_daycare.child.child_id" +
+                "  ORDER BY group_id,last_name");
+        System.out.printf("%-20s%-30s%-20s","Group Name","Last Name","First Name");
+        try{
+            while (rs.next()){
+                System.out.printf("%-20s%-30s%-20s",rs.getString("roskilde_daycare.group.group_name"),rs.getString("roskilde_daycare.child.first_name"),rs.getString("roskilde_daycare.child.last_naem"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

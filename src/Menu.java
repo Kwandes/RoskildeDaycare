@@ -28,8 +28,12 @@ public class Menu {
                 case 2:
                     seeBeing();
                     break;
-                case 99:
-                    return;
+                case 3:
+                    createBeing();
+                    break;
+                case 4: //update user information (change or delete)
+                    updateBeing();
+                    break;
                 default:
                     return;
             }
@@ -41,78 +45,75 @@ public class Menu {
     private static void starterScreen()
     {
         decorationHeader("Main Menu");
-        printFormat(1, "Show a list of people");
+        printFormat(1, "Display information about people");
         printFormat(2, "Create a new user");
         printFormat(3, "Update user information");
 
-        int input = ScannerReader.scannerInt(1,6);
+        int input = ScannerReader.scannerInt(1,4);
 
-        int choice = -1;
+        int choice = -1; // -1 in case of input error, then we know if its input or not updated
         switch (input)
         {
-            case 1:
-                printFormat(1, "See a list of all people by type");
-                printFormat(2, "Search for a specific person");
-                input = ScannerReader.scannerInt(1,6);
-                switch (input)
-                {
-                    case 1:
-                        decorationHeader("See a list of all people by type");
-                        String tableName = ManageBeing.chooseTable();
-                        ManageBeing.seeBeing(tableName);
-                        returnToMainMenuOrQuit();
-                        break;
-                    case 2:
-                        String person = ManageBeing.searchInBeingTable();
-                        //questionable return
-                        returnToMainMenuOrQuit();
-                        break;
-                }
-
-                //screenNumber = 2;
+            case 1: //see or search users
+                screenNumber=2;
                 break;
             case 2: //create a user
-                decorationHeader("Create a new user");
-                String query = ManageBeing.createQueryForAddBeing();
-                DBInteraction.updateDB(query);
-                returnToMainMenuOrQuit();
+                screenNumber=3;
                 break;
-            case 3:
-                decorationHeader("Update user information");
-                //update user information
-                returnToMainMenuOrQuit();
+            case 3: //update being (edit / delete)
+                screenNumber=4;
                 break;
             case 4:
-                decorationHeader("Delete a user");
-                //delete a user method
-                returnToMainMenuOrQuit();
-                break;
-            case 6:
-                System.out.println("Good bye");
-                screenNumber = 99;
+                decorationHeader("See phone numbers"); //temp waiting for telephone class
+                //phone list
                 break;
         }
     }
 
-    // see being description
-    // screenNumber = 2
+    //region screenNumber = 2
+    // see a list of all users or search for a specific
     private static void seeBeing()
     {
-        System.out.println("I want your phone");
-        ManageBeing.createQueryForAddBeing();
-
-        int input = 1;
+        decorationHeader("Display information about people");
+        printFormat(1, "See a list of all information people by type");
+        printFormat(2, "Search for a specific person's information");
+        int input = ScannerReader.scannerInt(1,6);
         switch (input)
         {
-            case 1:
-                System.out.println("k going back to main menu");
-                screenNumber = 1;
+            case 1: //see a list of all people of a specific type
+                decorationHeader("See a list of all people by type");
+                String tableName = ManageBeing.chooseTable();
+                ManageBeing.seeBeing(tableName);
                 break;
-            default:
-                System.out.println("Exiting out, bye");
-                screenNumber = 99;
+            case 2: //search for a user
+                decorationHeader("Search for a specific person's information");
+                ManageBeing.createSearchQuery( ManageBeing.chooseTable(),  ManageBeing.searchField());
                 break;
         }
+        returnToMainMenuOrQuit();
+    }
+    //region end
+
+    public static void  createBeing()
+    {
+        decorationHeader("Create a new user");
+        String query = ManageBeing.createQueryForAddBeing();
+        if (query != null)
+        {
+            DBInteraction.updateDB(query);
+        }
+        returnToMainMenuOrQuit();
+    }
+
+    public static void updateBeing()
+    {
+        decorationHeader("Update user information");
+        String query = ManageBeing.fullSearchBeing();
+        if (query != null)
+        {
+            DBInteraction.updateDB(query);
+        }
+        returnToMainMenuOrQuit();
     }
 
     //region artsy
@@ -144,6 +145,7 @@ public class Menu {
     {
         System.out.println("["+ num +"] " + text);
     }
+
 
     public static void returnToMainMenuOrQuit()
     {

@@ -172,11 +172,14 @@ public class ManageBeing {
                 i++;
             }
             System.out.println("[0] for cancel ");
-            int userInput = ScannerReader.scannerInt(0, i);
-            rs.absolute(userInput);
-            int id = rs.getInt(tableName + "_id");
-            System.out.println(id);
-            return id;
+                int userInput = ScannerReader.scannerInt(0, i);
+                if (userInput != 0) //had to add this or it crashed on invalid output due to output being -1 + tablename
+                {
+                    rs.absolute(userInput);
+                    int id = rs.getInt(tableName + "_id");
+                    //System.out.println(id); //checking for debugging -safetoremove
+                    return id;
+                }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -193,22 +196,24 @@ public class ManageBeing {
         return idForUpdate + " " + tableName;
     }
 
-    public static void fullSearchBeing(){
+    public static String fullSearchBeing(){
         String result = searchInBeingTable();
-        if (result.length()<1){
-            return;
+        //System.out.println(result); //safetoremove was to debug error
+        if (result.charAt(0) == '-'){
+            return null;
         }
         System.out.println("What would you like to do \n" +
                 "[1] Update \n" +
                 "[2] delete \n" +
                 "[0] return to the menu");
         int userInput = ScannerReader.scannerInt(0,2);
+        String completeQuery = null;
         switch (userInput){
             case 1:
-                updateBeing(result);
+                completeQuery = updateBeing(result);
                 break;
             case 2:
-                deleteBeing(result);
+                completeQuery = deleteBeing(result);
                 break;
             case 0:
                 System.out.println("return to the menu");
@@ -216,6 +221,7 @@ public class ManageBeing {
             default:
                 System.out.println("something went wrong");
         }
+        return completeQuery;
 
     }
     // a method to delete a being form one of the table, the string that you pass in should contain two words. first id that you would like to delete and second the table name.

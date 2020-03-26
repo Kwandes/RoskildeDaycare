@@ -14,13 +14,11 @@ public class ManagePhone {
     public static void showResultSetOfPhone (String query, String tableName)
     {
         ResultSet rs = getQueryResultSet(query); //getting ResultSet from the DB
-        System.out.printf("%-7s%-20s%-20s%1s\n", " Phone ID ", " Phone_number ", " Phone_type ", " Parent_ID ", "Employee_ID");
+        System.out.printf("%-15s%-13s%-17s%-20s\n", "Phone number", "Phone type", "First name", "Last name");
         System.out.println("_________________________________________________________________");
         try {
             while (rs.next()) { //iterating throw the resultSet and print it out
-                System.out.printf("%-7s%-20s%-20s%1s\n", (rs.getString(tableName + "idphone")),
-                        (rs.getString("phone_number") + " " +
-                                rs.getString("phone_type")), rs.getString("parent_id"), rs.getString("employee_id"));
+                System.out.printf("%-15s%-13s%-17s%-20s\n", (rs.getString("phone_number")), rs.getString("phone_type"), rs.getString("first_name"), rs.getString("last_name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,7 +28,9 @@ public class ManagePhone {
     //show all the being from a chosen table
     public static void seePhone (String tableName)
     {
-        String query = "SELECT " + tableName + " idphone, phone_number , phone_type , parent_id , employee_id FROM roskilde_daycare." + tableName; //create a query to the DB
+        //String query = "SELECT idphone, phone_number , phone_type , parent_id , employee_id FROM roskilde_daycare." + tableName+";";
+        String query = "SELECT first_name, last_name, phone_number, phone_type FROM roskilde_daycare."+tableName+" JOIN roskilde_daycare.phone p ON "+tableName+"."+tableName+"_id = p."+tableName+"_id;";
+        //create a query to the DB
         showResultSetOfPhone(query, tableName);
     }
 

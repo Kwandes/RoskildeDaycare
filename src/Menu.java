@@ -35,7 +35,7 @@ public class Menu {
                     updateBeing();
                     break;
                 case 5:
-                    //phonebook
+                    seePhoneNumbers();
                     break;
                 default:
                     return;
@@ -51,6 +51,7 @@ public class Menu {
         printFormat(1, "Display information about people");
         printFormat(2, "Create a new user");
         printFormat(3, "Update user information");
+        printFormat(4, "See phone numbers");
 
         int input = ScannerReader.scannerInt(1,4);
 
@@ -66,10 +67,8 @@ public class Menu {
             case 3: //update being (edit / delete)
                 screenNumber=4;
                 break;
-            case 4:
-                decorationHeader("See phone numbers"); //temp waiting for telephone class
-                String table = ManagePhone.chooseTable();
-                ManagePhone.seePhone(table);
+            case 4: //see phone numbers
+                screenNumber=5;
                 break;
         }
     }
@@ -120,6 +119,13 @@ public class Menu {
         returnToMainMenuOrQuit();
     }
 
+    public static void seePhoneNumbers()
+    {
+        decorationHeader("See phone numbers"); //temp waiting for telephone class
+        String table = ManagePhone.chooseTable();
+        ManagePhone.seePhone(table);
+        returnToMainMenuOrQuit();
+    }
     //region artsy
 
     // this adds a title separated by two lines, as declared by the final variable

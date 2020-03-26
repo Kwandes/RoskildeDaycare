@@ -11,6 +11,7 @@ public class Main
     {
         // prepare the DB for usage
         dbSetup();
+        securitySetup();
 
         // launch the actual user interface
         Menu.display();
@@ -22,5 +23,10 @@ public class Main
         DBInteraction.setUrl("minecraft.net");
         DBInteraction.setUser("user");
         DBInteraction.setPasswd("passwd");
+    }
+
+    public static void securitySetup()
+    {
+        Security.setKey("secretKeyForEncryptingData");
     }
 }

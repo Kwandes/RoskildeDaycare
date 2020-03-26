@@ -48,10 +48,10 @@ public class ManagePhone {
         switch (tableName) {
             case "employee":
                 return "INSERT INTO  roskilde_daycare." + tableName + " (phone_number)" +
-                        query "');"; //complete the query for employee
+                        query + "');"; //complete the query for employee
             case "parent":
                 return "INSERT INTO roskilde_daycare." + tableName + " (phone_number)" +
-                        query "');"; //complete query for parent
+                        query + "');"; //complete query for parent
             default:
                 System.out.println("something went wrong...");
                 return null;
@@ -137,7 +137,7 @@ public class ManagePhone {
         return -1;
     }
 
-    // allow you to search for specific being in one of the being table and it will return the id of the being
+    // allow you to search for specific phone number in one of the being table and it will return the id of the being
     public static String searchInPhoneTable ()
     {
         String tableName = chooseTable();
@@ -147,8 +147,8 @@ public class ManagePhone {
         return idForUpdate + " " + tableName;
     }
 
-    public static void fullSearchBeing(){
-        String result = searchInBeingTable();
+    public static void fullSearchPhone(){
+        String result = searchInPhoneTable();
         if (result.length()<1){
             return;
         }
@@ -173,7 +173,7 @@ public class ManagePhone {
 
     }
     // a method to delete a being form one of the table, the string that you pass in should contain two words. first id that you would like to delete and second the table name.
-    //it is made like this for continue method to searchInBeingTable
+    //it is made like this for continue method to searchInPhoneTable
     public static String deletePhone (String toDelete)
     {
         Scanner scanner = new Scanner(toDelete);
@@ -203,15 +203,16 @@ public class ManagePhone {
     public static String updateEmployee (int id)
     {
         String userChange;
-        System.out.println("What do you want to change the phone number to?" +
-                userChange = ScannerReader.scannerWords();
+        System.out.println("What do you want to change the phone number to?");
+                userChange = ScannerReader.scannerIntAsString();
                 return "UPDATE  roskilde_daycare.employee SET phone_number = '" + userChange + "' WHERE employee_id = " + id;
     }
 
     public static String updateParent (int id)
     {
         String userChange;
-        System.out.println("What do you want to change the phone number to?" +
-            userChange = ScannerReader.scannerWords();
+        System.out.println("What do you want to change the phone number to?");
+            userChange = ScannerReader.scannerIntAsString();
             return "UPDATE  roskilde_daycare.parent SET phone_number = '" + userChange + "' WHERE parent_id = " + id;
     }
+}

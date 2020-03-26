@@ -62,7 +62,7 @@ public class ManagePhone {
     public static String chooseTable ()
     {
         //user choose the table to operate on
-        System.out.println("which group of being would you like to operate on:\n[1] Employee\n[2] Parent \n[3] Child");
+        System.out.println("which group of being would you like to operate on:\n[1] Employee\n[2] Parent");
         int userChoice = ScannerReader.scannerInt(1, 2);
         switch (userChoice) {
             case 1:

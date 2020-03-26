@@ -34,6 +34,9 @@ public class Menu {
                 case 4: //update user information (change or delete)
                     updateBeing();
                     break;
+                case 5:
+                    //phonebook
+                    break;
                 default:
                     return;
             }
@@ -65,7 +68,8 @@ public class Menu {
                 break;
             case 4:
                 decorationHeader("See phone numbers"); //temp waiting for telephone class
-                //phone list
+                String table = ManagePhone.chooseTable();
+                ManagePhone.seePhone(table);
                 break;
         }
     }
